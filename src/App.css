@@ -22,6 +22,9 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+    overflow: hidden;
+    margin: 0;
+    text-align: center;
 }
 
 .App-link {
@@ -29,9 +32,15 @@
 }
 
 .form-field {
-    display: grid;
-    margin-left: 25px;
+    display: flex;
+    margin: 0 15px;
+    flex-direction: column;
     color: blanchedalmond;
+}
+
+input {
+    height: 40px;
+    width: 200px;
 }
 
 input:focus {
