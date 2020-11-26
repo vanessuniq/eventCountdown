@@ -5,7 +5,13 @@ function App() {
   const [event, setevent] = useState({
     name: '',
     date: '',
-    submit: false
+    submit: false,
+    timer: {
+      days: '',
+      hours: '',
+      minutes: '',
+      seconds: ''
+    }
   })
   let eventInfo;
   const inputChange = (e) => {
@@ -22,7 +28,16 @@ function App() {
     console.log(eventInfo);
 
   }
-  
+  const calculateTimeLeft = (eventInfo) => {
+    const timeLeft = +new Date(eventInfo.date) - new Date()
+    return {
+      days: Math.floor(timeLeft/(24 * 60 * 60 * 1000)),
+      hours: Math.floor((timeLeft/(60 * 60 * 1000)) % 24),
+      minutes: Math.floor((timeLeft/(60 * 1000)) % 60),
+      seconds: Math.floor((timeLeft/(1000)) % 60)
+    }
+
+  }
   return (
     <div className="App">
       <header className="App-header">
