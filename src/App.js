@@ -1,19 +1,23 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import EventForm from './Component/EventForm';
+import Timer from './Component/Timer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [event, setevent] = useState({
     name: '',
     date: '',
     submit: false,
-    timer: {
-      days: '',
-      hours: '',
-      minutes: '',
-      seconds: ''
-    }
   })
-  let eventInfo;
+  const [timer, settimer] = useState({
+      days: '00',
+      hours: '00',
+      minutes: '00',
+      seconds: '00'
+    })
+  const [eventInfo, seteventInfo] = useState({name: 'New Year', date: `${new Date().getFullYear() + 1}-01-01`})
   const inputChange = (e) => {
     setevent({
       ...event,
@@ -23,12 +27,11 @@ function App() {
 
   const formSubmit = (e) => {
     e.preventDefault()
-    eventInfo = {name: event.name, date: event.date}
+    seteventInfo(event)
     setevent({...event, name: '', date: '', submit: true})
-    console.log(eventInfo);
-
+    
   }
-  const calculateTimeLeft = (eventInfo) => {
+  const calculateTimeLeft = () => {
     const timeLeft = +new Date(eventInfo.date) - new Date()
     return {
       days: Math.floor(timeLeft/(24 * 60 * 60 * 1000)),
@@ -36,29 +39,29 @@ function App() {
       minutes: Math.floor((timeLeft/(60 * 1000)) % 60),
       seconds: Math.floor((timeLeft/(1000)) % 60)
     }
-
   }
+  
+  useEffect(() => {
+    //const info = {date: eventInfo.date}
+    const countdown = setTimeout(() => {
+        settimer( calculateTimeLeft())
+      }, 1000)
+     //clear timer upon unmounting
+    return () => clearTimeout(countdown)
+      
+  })
+  const {days, hours, minutes, seconds} = timer
+  const timeUp = days === hours === minutes === seconds === 0
   return (
     <div className="App">
       <header className="App-header">
-      <div style={{borderColor: '#fff', borderStyle: 'groove'}}>
-        <form style={{marginBottom: '30px'}} onSubmit={formSubmit}>
-          <div style={{display: 'flex'}}>
-            <div className="form-field">
-              <label htmlFor="name"><h3>Event Name</h3></label>
-              <input type="text" name="name" value={event.name} onChange={inputChange}/>
-            </div>
-            <div className="form-field">
-              <label htmlFor="date"><h3>Event Date</h3></label>
-              <input type="date" name="date" value={event.date} onChange={inputChange}/>
-            </div>
-            <div className="form-field" style={{marginTop: '60px'}}>
-              <button type="submit" disabled={!(event.name && event.date)}>Start Countdown</button>
-            </div>
-          </div>
-        </form>
-      </div>
-        <h2>Let's Create an event countdown shall we?</h2>
+      
+        <EventForm formSubmit={formSubmit} inputChange={inputChange} name={event.name} date={event.date}/>
+         {!timeUp && <h1>
+          <FontAwesomeIcon icon={faHeart} style={{color:'red'}}/> It's almost time for {eventInfo.name} <FontAwesomeIcon icon={faHeart} style={{color:'red'}}/>
+          </h1>}
+        <Timer days={days} hours={hours} minutes={minutes} seconds={seconds}/>
+        {timeUp && <h2 style={{color: '#ffc0cb'}}>Yes, We Made it! Happy {eventInfo.name} day!</h2>}
       </header>
     </div>
   );

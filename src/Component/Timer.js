@@ -2,12 +2,12 @@ import React from 'react'
 
 function Timer({days, hours, minutes, seconds}) {
     return (
-        <div>
+        <div style={{display: 'flex'}}>
             <div className="form-field">
                 <h1>{days}</h1>
                 <small>days</small>
             </div>
-            <div class="form-field">
+            <div className="form-field">
                 <h1>{hours}</h1>
                 <small>hours</small>
             </div>

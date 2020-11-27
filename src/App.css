@@ -48,6 +48,10 @@ input:focus {
     background-color: burlywood;
 }
 
+small {
+    color: tomato;
+}
+
 button {
     background: floralwhite;
     color: brown;
