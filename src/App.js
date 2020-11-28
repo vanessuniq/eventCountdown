@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import EventForm from './Component/EventForm';
 import Timer from './Component/Timer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart} from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [event, setevent] = useState({
@@ -12,10 +12,10 @@ function App() {
     submit: false,
   })
   const [timer, settimer] = useState({
-      days: '00',
-      hours: '00',
-      minutes: '00',
-      seconds: '00'
+      days: '0',
+      hours: '0',
+      minutes: '0',
+      seconds: '0'
     })
   const [eventInfo, seteventInfo] = useState({name: 'New Year', date: `${new Date().getFullYear() + 1}-01-01`})
   const inputChange = (e) => {
@@ -42,25 +42,25 @@ function App() {
   }
   
   useEffect(() => {
-    //const info = {date: eventInfo.date}
     const countdown = setTimeout(() => {
         settimer( calculateTimeLeft())
-      }, 1000)
+      }, 1000);
+      
      //clear timer upon unmounting
     return () => clearTimeout(countdown)
       
   })
   const {days, hours, minutes, seconds} = timer
   const timeUp = days === hours === minutes === seconds === 0
+  const formatNum = (num) => num<10? `0${num}` : num
   return (
     <div className="App">
       <header className="App-header">
-      
         <EventForm formSubmit={formSubmit} inputChange={inputChange} name={event.name} date={event.date}/>
          {!timeUp && <h1>
-          <FontAwesomeIcon icon={faHeart} style={{color:'red'}}/> It's almost time for {eventInfo.name} <FontAwesomeIcon icon={faHeart} style={{color:'red'}}/>
+          <FontAwesomeIcon icon={faHeart} style={{color:'red'}}/> Countdown to {eventInfo.name.toUpperCase()} <FontAwesomeIcon icon={faHeart} style={{color:'red'}}/>
           </h1>}
-        <Timer days={days} hours={hours} minutes={minutes} seconds={seconds}/>
+        <Timer days={formatNum(days)} hours={formatNum(hours)} minutes={formatNum(minutes)} seconds={formatNum(seconds)}/>
         {timeUp && <h2 style={{color: '#ffc0cb'}}>Yes, We Made it! Happy {eventInfo.name} day!</h2>}
       </header>
     </div>
