@@ -2,9 +2,9 @@ import React from 'react'
 
 function EventForm({formSubmit, inputChange, name, date}) {
     return (
-        <div style={{borderColor: '#fff', borderStyle: 'groove'}}>
+        <div className='form-container'>
             <form style={{marginBottom: '30px'}} onSubmit={e => formSubmit(e)}>
-                <div style={{display: 'flex'}}>
+                <div className='form-sub'>
                     <div className="form-field">
                         <label htmlFor="name"><h3>Event Name</h3></label>
                         <input type="text" name="name" value={name} onChange={inputChange}/>
