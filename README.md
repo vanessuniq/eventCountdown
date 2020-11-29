@@ -1,6 +1,20 @@
+# Description
+
+Welcome to the Event Countdown Timer built with react.js. It is a simple coundown timer allowing the user to enter an event date and name begin the countdown. The app was styled using simple css.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# Additional Dependencies
+
+Font Awesome: add this package to your package.json using the following commends:
+```
+  yarn add @fortawesome/fontawesome-svg-core
+  yarn add @fortawesome/free-solid-svg-icons
+  yarn add @fortawesome/react-fontawesome
+  
+```
 
 ## Available Scripts
 
