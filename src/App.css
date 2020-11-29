@@ -65,12 +65,3 @@ button:disabled:hover {
     opacity: 0.5;
     cursor: default;
 }
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
